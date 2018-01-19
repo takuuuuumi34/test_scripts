@@ -1,0 +1,5 @@
+http://phantomjs.org/quick-start.html
+のload speed
+
+usage
+phantomjs load_speed.js <some_url>
