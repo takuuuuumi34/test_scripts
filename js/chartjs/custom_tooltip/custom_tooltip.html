@@ -1,0 +1,53 @@
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+</head>
+<body>
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+<script>
+  var chart = new Chart(document.getElementById("myChart"),
+  {
+    type: "doughnut",
+    data: {
+      labels: ["Red", "Blue", "Yellow"],
+      datasets: [
+        {
+          label: "Favorite color",
+          data: [70, 10, 20],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.8)',
+            'rgba(54, 162, 235, 0.8)',
+            'rgba(255, 206, 86, 0.8)'
+          ]
+        }
+      ]
+    },
+    options: {
+      tooltips: {
+        custom: function(tooltip) {
+          if (!tooltip) return;
+          tooltip.displayColors = false; // tooltipのcolor boxを非表示にする
+        },
+        intersect: true, // マウスと要素が重なっている時に表示するかどうか
+        backgroundColor: 'rgba(0, 0, 255, 0.8)', // 背景の色
+        titleFontSize: 16,
+        bodyFontSize: 16,
+        xPadding: 10, // ツールチップ全体の左右のパディング
+        yPadding: 10, // ツールチップ全体の上下のパディング
+        callbacks: {
+          title: function(tooltipItem, data) {
+            return "Title";
+          },
+          label: function (tooltipItem, data) {
+            return [data.labels[tooltipItem.index] + ": " + data.datasets[0].data[tooltipItem.index] + " %", "multiple label content", "hoge fuga"];
+          },
+        }
+      }
+    }
+  });
+</script>
+<body>
+<html>
