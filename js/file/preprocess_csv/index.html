@@ -1,0 +1,53 @@
+<html>
+<head>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <loader></loader>
+  </div>
+
+  <!-- template for graph -->
+  <script type="text/x-template" id="loader">
+    <div>
+      <input id="load_file" type="file" @change="load_file" />
+      <div>{{ file_data }}</div>
+    </div>
+  </script>
+
+  <script>
+    Vue.component('loader', {
+      template: '#loader',
+      data: function(){
+        return {
+          "file_data": "",
+        }
+      },
+      methods: {
+        load_file: function(e) {
+          let self = this;
+
+          let file = e.target.files[0];
+          var reader = new FileReader();
+
+          reader.onload = function(event) {
+            self.file_data = event.target.result;
+            const url = "http://0.0.0.0:8080/post_file"
+            let fd = new FormData();
+            fd.append("file_data", event.target.result);
+            axios.post(url, fd).then(function(response){
+              console.log(response.data.test);
+            });
+          };
+          reader.readAsBinaryString(file);
+        }
+      }
+    });
+
+    var app = new Vue({
+      el: '#app',
+    })
+  </script>
+</body>
+</html>
