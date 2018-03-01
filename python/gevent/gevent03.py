@@ -4,6 +4,7 @@ from gevent import Greenlet
 
 class MyGreenlet(Greenlet):
     def __init__(self, message, n):
+        Greenlet.__init__(self)
         self.message = message
         self.n = n
 
@@ -13,5 +14,7 @@ class MyGreenlet(Greenlet):
 
 
 g = MyGreenlet('Hi', 3)
+g2 = MyGreenlet('Foo', 3)
 g.start()
+g2.start()
 g.join()
